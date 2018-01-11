@@ -23,14 +23,14 @@ end
 private
 
   def login(email, password)
-    @user = User.find_by(email: email)
-    if @user && @user.authenticate(password)
+    @user = User.find_by(email: params[:session][:email].downcase)
+    if @user && @user.authenticate(params[:session][:password])
       # ログイン成功
       session[:user_id] = @user.id
       return true
     else
-      # ログイン失敗
-      return false
+      flash[:danger] = 'Invalid email/password combination'
+      render 'new'
     end
   end
 end
