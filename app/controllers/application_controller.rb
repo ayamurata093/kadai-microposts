@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
-
+  
+  def sign_out
+    cookies.delete(:user_remember_token)
+  end
+  
   def counts(user)
     @count_microposts = user.microposts.count
   end

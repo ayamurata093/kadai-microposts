@@ -4,7 +4,9 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
-  has_secure_password
+  has_secure_password validations: true
   
   has_many :microposts
+  
+  validates :mail, presence: true, uniqueness: true
 end

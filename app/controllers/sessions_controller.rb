@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  
   def new
   end
 
@@ -11,8 +12,8 @@ class SessionsController < ApplicationController
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render 'new'
+    end
   end
-end
 
   def destroy
     session[:user_id] = nil
@@ -31,6 +32,10 @@ private
     else
       flash[:danger] = 'Invalid email/password combination'
       render 'new'
+    end
+     # 許可するパラメータ
+    def session_params
+      params.require(:session).permit(:mail, :password)
     end
   end
 end
