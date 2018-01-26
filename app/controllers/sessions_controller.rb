@@ -25,17 +25,19 @@ private
 
   def login(email, password)
     @user = User.find_by(email: params[:session][:email].downcase)
+    # binding.pry
     if @user && @user.authenticate(params[:session][:password])
       # ログイン成功
       session[:user_id] = @user.id
       return true
     else
-      flash[:danger] = 'Invalid email/password combination'
-      render 'new'
-    end
-     # 許可するパラメータ
-    def session_params
-      params.require(:session).permit(:mail, :password)
+      return false
     end
   end
+  
+  # 許可するパラメータ
+  def session_params
+    params.require(:session).permit(:email, :password)
+  end
+    
 end
